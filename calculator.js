@@ -40,22 +40,20 @@ function handleC() {
   }
 }
 
+function deleteLastChar(string) {
+  return string.slice(0, string.length - 1);
+}
+
 function handleBackArrow() {
   if (state.operator === "") {
-    state.leftNumberString = state.leftNumberString.slice(
-      0,
-      state.leftNumberString.length - 1
-    );
+    state.leftNumberString = deleteLastChar(state.leftNumberString);
     if (state.leftNumberString === "") {
       toScreen("0");
     } else {
       toScreen(state.leftNumberString);
     }
   } else {
-    state.rightNumberString = state.rightNumberString.slice(
-      0,
-      state.rightNumberString.length - 1
-    );
+    state.rightNumberString = deleteLastChar(state.rightNumberString);
     if (state.rightNumberString === "") {
       toScreen("0");
     } else {
