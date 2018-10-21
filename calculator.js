@@ -7,6 +7,7 @@ const state = {
 const container = document.querySelector(".calculator-container");
 container.addEventListener("click", onClick);
 
+// onClick :: Event -> void
 function onClick(event) {
   const char = event.target.innerText;
   switch (char) {
@@ -30,6 +31,7 @@ function onClick(event) {
   }
 }
 
+// handleC :: void -> void
 function handleC() {
   if (state.operator === "") {
     state.leftNumberString = "";
@@ -40,10 +42,12 @@ function handleC() {
   }
 }
 
+// deleteLastChar :: String -> String
 function deleteLastChar(string) {
   return string.slice(0, string.length - 1);
 }
 
+// handleBackArrow :: void -> void
 function handleBackArrow() {
   if (state.operator === "") {
     state.leftNumberString = deleteLastChar(state.leftNumberString);
@@ -62,6 +66,7 @@ function handleBackArrow() {
   }
 }
 
+// handleOperation :: String -> void
 function handleOperation(operation) {
   if (state.operator === "") {
     state.operator = operation;
@@ -71,6 +76,7 @@ function handleOperation(operation) {
   }
 }
 
+// handleEquals :: void -> void
 function handleEquals() {
   if (
     state.operator === "" ||
@@ -104,6 +110,7 @@ function handleEquals() {
   }
 }
 
+// handleNumber :: String -> void
 function handleNumber(textNumber) {
   if (state.operator === "") {
     state.leftNumberString += textNumber;
@@ -114,6 +121,7 @@ function handleNumber(textNumber) {
   }
 }
 
+// cleanData :: void -> void
 function cleanData() {
   state.leftNumberString = "";
   state.rightNumberString = "";
@@ -121,11 +129,19 @@ function cleanData() {
   toScreen("0");
 }
 
+// add :: Number -> Number -> Number
 const add = (x, y) => x + y;
+
+// sub :: Number -> Number -> Number
 const sub = (x, y) => x - y;
+
+// mul :: Number -> Number -> Number
 const mul = (x, y) => x * y;
+
+// div :: Number -> Number -> Number
 const div = (x, y) => x / y;
 
+// toScreen :: String -> void
 function toScreen(x) {
   document.querySelector(".result").innerHTML = x;
 }
