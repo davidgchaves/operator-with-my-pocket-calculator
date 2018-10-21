@@ -33,81 +33,75 @@ function onClick(event) {
 
 // handleC :: void -> void
 function handleC() {
-  if (state.operator === "") {
-    state.leftNumberString = "";
-    toScreen("0");
-  } else {
-    state.rightNumberString = "";
-    toScreen("0");
-  }
+  state.operator === ""
+    ? (state.leftNumberString = "")
+    : (state.rightNumberString = "");
+  toScreen("0");
 }
 
 // deleteLastChar :: String -> String
-function deleteLastChar(string) {
-  return string.slice(0, string.length - 1);
-}
+const deleteLastChar = string => string.slice(0, string.length - 1);
 
 // handleBackArrow :: void -> void
 function handleBackArrow() {
   if (state.operator === "") {
     state.leftNumberString = deleteLastChar(state.leftNumberString);
-    if (state.leftNumberString === "") {
-      toScreen("0");
-    } else {
-      toScreen(state.leftNumberString);
-    }
+    state.leftNumberString === ""
+      ? toScreen("0")
+      : toScreen(state.leftNumberString);
   } else {
     state.rightNumberString = deleteLastChar(state.rightNumberString);
-    if (state.rightNumberString === "") {
-      toScreen("0");
-    } else {
-      toScreen(state.rightNumberString);
-    }
+    state.rightNumberString === ""
+      ? toScreen("0")
+      : toScreen(state.rightNumberString);
   }
 }
 
 // handleOperation :: String -> void
 function handleOperation(operation) {
-  if (state.operator === "") {
-    state.operator = operation;
-  } else {
-    /* CANNOT HANDLE 2 OPERATORS */
-    cleanData();
+  state.operator === "" ? (state.operator = operation) : wipeState();
+}
+
+// operatorOrAnyNumberIsMissing :: State -> Bool
+const operatorOrAnyNumberIsMissing = state =>
+  state.operator === "" ||
+  state.leftNumberString === "" ||
+  state.rightNumberString === "";
+
+// doTheMath :: Number -> Number -> String -> Number
+function doTheMath(left, right, operation) {
+  switch (operation) {
+    case "+":
+      return add(left, right);
+    case "−":
+      return sub(left, right);
+    case "×":
+      return mul(left, right);
+    case "÷":
+      return div(left, right);
   }
+}
+
+// fixState :: State -> void
+const fixState = (state, newLeft) => {
+  state.leftNumberString = newLeft;
+  state.operator = "";
+  state.rightNumberString = "";
+};
+
+// performOperation :: State -> void
+function performOperation(state) {
+  const leftNumber = parseInt(state.leftNumberString);
+  const rightNumber = parseInt(state.rightNumberString);
+  const result = doTheMath(leftNumber, rightNumber, state.operator);
+
+  toScreen(String(result));
+  fixState(state, String(result));
 }
 
 // handleEquals :: void -> void
 function handleEquals() {
-  if (
-    state.operator === "" ||
-    state.leftNumberString === "" ||
-    state.rightNumberString === ""
-  ) {
-    cleanData();
-  } else {
-    const leftNumber = parseInt(state.leftNumberString);
-    const rightNumber = parseInt(state.rightNumberString);
-    let result;
-    switch (state.operator) {
-      case "+":
-        result = add(leftNumber, rightNumber);
-        break;
-      case "−":
-        result = sub(leftNumber, rightNumber);
-        break;
-      case "×":
-        result = mul(leftNumber, rightNumber);
-        break;
-      case "÷":
-        result = div(leftNumber, rightNumber);
-        break;
-    }
-
-    toScreen(result);
-    state.leftNumberString = result;
-    state.operator = "";
-    state.rightNumberString = "";
-  }
+  operatorOrAnyNumberIsMissing(state) ? wipeState() : performOperation(state);
 }
 
 // handleNumber :: String -> void
@@ -121,8 +115,8 @@ function handleNumber(textNumber) {
   }
 }
 
-// cleanData :: void -> void
-function cleanData() {
+// wipeState :: void -> void
+function wipeState() {
   state.leftNumberString = "";
   state.rightNumberString = "";
   state.operator = "";
