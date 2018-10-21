@@ -4,8 +4,9 @@ const state = {
   operator: ""
 };
 
-const container = document.querySelector(".calculator-container");
-container.addEventListener("click", onClick);
+document
+  .querySelector(".calculator-container")
+  .addEventListener("click", onClick);
 
 // onClick :: Event -> void
 function onClick(event) {
