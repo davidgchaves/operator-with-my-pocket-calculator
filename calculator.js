@@ -4,9 +4,12 @@ const state = {
   operator: ""
 };
 
-document
-  .querySelector(".calculator-container")
-  .addEventListener("click", onClick);
+// start :: void -> void
+function start() {
+  document
+    .querySelector(".calculator-container")
+    .addEventListener("click", onClick);
+}
 
 // onClick :: Event -> void
 function onClick(event) {
@@ -140,3 +143,5 @@ const div = (x, y) => x / y;
 function toScreen(x) {
   document.querySelector(".result").innerHTML = x;
 }
+
+start();
