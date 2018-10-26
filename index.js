@@ -36,7 +36,7 @@ function onClick(event) {
       handleOperator(char);
       break;
     case "C":
-      console.log(char);
+      handleC();
       break;
     case "←":
       console.log(char);
@@ -96,6 +96,17 @@ function handleEquals() {
   }
 
   printToScreen(String(result));
+}
+
+// handleC :: void -> void
+function handleC() {
+  if (state.operator === "") {
+    state.leftNumberString = "";
+  } else {
+    state.rightNumberString = "";
+  }
+
+  printToScreen("0");
 }
 
 // printToScreen :: String -> void
