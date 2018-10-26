@@ -53,11 +53,11 @@ function onClick(event) {
 // handleNumber :: String -> void
 function handleNumber(numberString) {
   if (state.operator === "") {
-    state.leftNumberString = numberString;
+    state.leftNumberString = state.leftNumberString + numberString;
     printToScreen(state.leftNumberString);
     console.log(`left guardado: ${state.leftNumberString}`);
   } else {
-    state.rightNumberString = numberString;
+    state.rightNumberString = state.rightNumberString + numberString;
     printToScreen(state.rightNumberString);
     console.log(`right guardado: ${state.rightNumberString}`);
   }
