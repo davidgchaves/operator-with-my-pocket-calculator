@@ -103,11 +103,9 @@ function handleEquals() {
 
 // handleC :: void -> void
 function handleC() {
-  if (state.operator === "") {
-    state.leftNumberString = "";
-  } else {
-    state.rightNumberString = "";
-  }
+  state.operator === ""
+    ? (state.leftNumberString = "")
+    : (state.rightNumberString = "");
 
   printToScreen("0");
 }
