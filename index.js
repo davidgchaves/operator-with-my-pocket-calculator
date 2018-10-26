@@ -33,7 +33,7 @@ function onClick(event) {
     case "−":
     case "×":
     case "÷":
-      console.log(char);
+      handleOperator(char);
       break;
     case "C":
       console.log(char);
@@ -52,8 +52,21 @@ function onClick(event) {
 
 // handleNumber :: String -> ???
 function handleNumber(numberString) {
-  state.leftNumberString = numberString;
-  printToScreen(state.leftNumberString);
+  if (state.operator === "") {
+    state.leftNumberString = numberString;
+    printToScreen(state.leftNumberString);
+    console.log(`left guardado: ${state.leftNumberString}`);
+  } else {
+    state.rightNumberString = numberString;
+    printToScreen(state.rightNumberString);
+    console.log(`right guardado: ${state.rightNumberString}`);
+  }
+}
+
+// handleOperator :: String -> ???
+function handleOperator(operator) {
+  state.operator = operator;
+  console.log(`operador guardado: ${state.operator}`);
 }
 
 // printToScreen :: String -> void
