@@ -96,6 +96,9 @@ function handleEquals() {
   }
 
   printToScreen(String(result));
+  state.leftNumberString = String(result);
+  state.rightNumberString = "";
+  state.operator = "";
 }
 
 // handleC :: void -> void
