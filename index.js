@@ -1,3 +1,10 @@
+// GLOBAL STATE
+const state = {
+  leftNumberString: "",
+  rightNumberString: "",
+  operator: ""
+};
+
 // start :: void -> void
 function start() {
   document
@@ -19,7 +26,7 @@ function onClick(event) {
     case "7":
     case "8":
     case "9":
-      console.log(char);
+      handleNumber(char);
       break;
 
     case "+":
@@ -41,6 +48,12 @@ function onClick(event) {
       console.error("Something went wrong!");
       break;
   }
+}
+
+// handleNumber :: String -> ???
+function handleNumber(numberString) {
+  state.leftNumberString = numberString;
+  printToScreen(state.leftNumberString);
 }
 
 // printToScreen :: String -> void
