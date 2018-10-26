@@ -39,7 +39,7 @@ function onClick(event) {
       handleC();
       break;
     case "←":
-      console.log(char);
+      handleBackArrow();
       break;
     case "=":
       handleEquals();
@@ -108,6 +108,29 @@ function handleC() {
 
   printToScreen("0");
 }
+
+// handleBackArrow :: void -> void
+function handleBackArrow() {
+  if (state.operator === "") {
+    state.leftNumberString = deleteLastCharFrom(state.leftNumberString);
+    if (state.leftNumberString === "") {
+      printToScreen("0");
+    } else {
+      printToScreen(state.leftNumberString);
+    }
+  } else {
+    state.rightNumberString = deleteLastCharFrom(state.rightNumberString);
+    if (state.rightNumberString === "") {
+      printToScreen("0");
+    } else {
+      printToScreen(state.rightNumberString);
+    }
+  }
+}
+
+// deleteLastCharFrom :: String -> String
+const deleteLastCharFrom = numberString =>
+  numberString.slice(0, numberString.length - 1);
 
 // printToScreen :: String -> void
 function printToScreen(message) {
