@@ -42,7 +42,7 @@ function onClick(event) {
       console.log(char);
       break;
     case "=":
-      console.log(char);
+      handleEquals();
       break;
     default:
       console.error("Something went wrong!");
@@ -50,7 +50,7 @@ function onClick(event) {
   }
 }
 
-// handleNumber :: String -> ???
+// handleNumber :: String -> void
 function handleNumber(numberString) {
   if (state.operator === "") {
     state.leftNumberString = numberString;
@@ -63,10 +63,39 @@ function handleNumber(numberString) {
   }
 }
 
-// handleOperator :: String -> ???
+// handleOperator :: String -> void
 function handleOperator(operator) {
   state.operator = operator;
   console.log(`operador guardado: ${state.operator}`);
+}
+
+// handleEquals :: void -> void
+function handleEquals() {
+  let result;
+
+  switch (state.operator) {
+    case "+":
+      result =
+        parseInt(state.leftNumberString) + parseInt(state.rightNumberString);
+      break;
+    case "−":
+      result =
+        parseInt(state.leftNumberString) - parseInt(state.rightNumberString);
+      break;
+    case "×":
+      result =
+        parseInt(state.leftNumberString) * parseInt(state.rightNumberString);
+      break;
+    case "÷":
+      result =
+        parseInt(state.leftNumberString) / parseInt(state.rightNumberString);
+      break;
+    default:
+      console.error("WHAT!");
+      break;
+  }
+
+  printToScreen(String(result));
 }
 
 // printToScreen :: String -> void
